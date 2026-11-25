@@ -62,6 +62,26 @@ h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:28px}
 .projects .photo{aspect-ratio:16/9;font-size:1.4rem}
 .projects .body{padding:20px 24px 24px}
 .projects p{margin:8px 0 10px;color:var(--muted)}
+.attachments{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));align-items:start}
+.attachment-card{padding:20px;overflow:hidden}
+.attachment-card h3{margin:10px 0 0;padding-right:24px}
+.attachment-type{display:inline-flex;align-items:center;gap:7px;background:#EEF0FF;color:var(--brand);border-radius:999px;padding:4px 11px;font-size:.82rem;font-weight:700}
+.attachment-media{margin:16px -20px 0;background:#E9ECF5;overflow:hidden}
+.attachment-media img,.attachment-media video,.attachment-media iframe{display:block;width:100%;border:0}
+.attachment-media img{height:auto;max-height:360px;object-fit:contain}
+.attachment-media video,.attachment-media iframe{aspect-ratio:16/9}
+.attachment-media iframe{background:#111}
+.attachment-placeholder{min-height:130px;display:grid;place-items:center;padding:20px;text-align:center;color:var(--muted);font-weight:500}
+.attachment-caption{margin:14px 0 0;color:var(--muted);white-space:pre-wrap;overflow-wrap:anywhere}
+.attachment-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.attachment-links .btn{font-size:.9rem;padding:9px 16px}
+.attachment-controls{position:absolute;top:12px;right:12px;gap:5px}
+.attachment-controls button{border:1px solid var(--line);border-radius:8px;background:#fff;padding:5px 8px;font:700 .8rem var(--body);cursor:pointer}
+.attachment-controls .rm{position:static}
+.edit-only.attachment-controls{display:none}
+body.editing .edit-only.attachment-controls{display:flex}
+.attachments-empty{grid-column:1/-1;color:var(--muted);margin:0}
+.attachment-add{margin-top:16px}
 .tags{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
 .tags li{background:var(--card);border:2px solid var(--ink);border-radius:999px;padding:8px 18px;font-weight:500}
 .contact{background:var(--ink);color:#fff;border-top:0}
@@ -88,17 +108,23 @@ dialog{border:0;border-radius:18px;padding:28px;max-width:340px;width:90%}
 dialog::backdrop{background:rgba(20,25,43,.6)}
 dialog h2{font-size:1.4rem;margin-bottom:8px}
 dialog input{width:100%;padding:11px 12px;border:2px solid var(--line);border-radius:10px;font:inherit;margin:10px 0}
+dialog select,dialog textarea{width:100%;padding:11px 12px;border:2px solid var(--line);border-radius:10px;font:inherit;margin:10px 0;background:#fff;color:var(--ink)}
+dialog textarea{min-height:100px;resize:vertical}
+dialog label{display:block;font-weight:700;margin-top:12px}
+dialog .hint{font-size:.88rem;color:var(--muted);margin:4px 0 10px}
+dialog.attachment-dialog{max-width:560px;max-height:90vh;overflow:auto}
 dialog .row{display:flex;gap:10px;justify-content:flex-end}
 dialog button{font:700 .95rem var(--body);padding:9px 18px;border-radius:999px;border:2px solid var(--ink);background:#fff;cursor:pointer}
 dialog button.go{background:var(--ink);color:#fff}
 #err{color:#B3261E;font-size:.9rem;min-height:1.3em;margin:0}
 #toast{position:fixed;top:72px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;z-index:30;display:none}
-@media(max-width:760px){.hero,.about{grid-template-columns:1fr}.hero{padding-top:40px}.heroPhoto{max-width:340px}nav{gap:14px}nav a{font-size:.9rem}}
+@media(max-width:760px){.hero,.about{grid-template-columns:1fr}.hero{padding-top:40px}.heroPhoto{max-width:340px}header .wrap{height:auto;min-height:60px;align-items:flex-start;flex-direction:column;justify-content:center;gap:8px;padding-top:10px;padding-bottom:10px}nav{gap:8px 14px;flex-wrap:wrap}nav a{font-size:.9rem}}
+@media(max-width:420px){.attachments{grid-template-columns:1fr}.attachment-card{padding:18px}.attachment-media{margin-left:-18px;margin-right:-18px}}
 </style>
 </head>
 <body>
 <header><div class="wrap"><a class="logo" href="#topo">Maciely Alves</a>
-<nav aria-label="Principal"><a href="#sobre">Sobre</a><a href="#experiencias">Experiências</a><a href="#projetos">Projetos</a><a href="#contato">Contato</a></nav></div></header>
+<nav aria-label="Principal"><a href="#sobre">Sobre</a><a href="#experiencias">Experiências</a><a href="#projetos">Projetos</a><a href="#anexos">Anexos</a><a href="#contato">Contato</a></nav></div></header>
 
 <main id="content" data-v="0">
 <div class="wrap" id="topo">
@@ -153,6 +179,13 @@ dialog button.go{background:var(--ink);color:#fff}
 <button class="add edit-only" data-list="#proj">Adicionar projeto</button>
 </div></section>
 
+<section id="anexos"><div class="wrap">
+<h2>Anexos e Materiais Complementares</h2>
+<p class="section-intro">Vídeos, documentos e outros materiais que complementam meus projetos e experiências.</p>
+<div class="list attachments" id="attachments" aria-live="polite"></div>
+<button class="add attachment-add edit-only" data-attachment-add>Adicionar anexo</button>
+</div></section>
+
 <section id="competencias"><div class="wrap">
 <h2>Competências</h2>
 <ul class="tags" data-ed><li>Liderança de equipes</li><li>Gestão de projetos</li><li>Comunicação</li><li>Robótica</li><li>Lógica de programação</li><li>Organização e prazos</li><li>Microsoft Office</li></ul>
@@ -175,10 +208,30 @@ dialog button.go{background:var(--ink);color:#fff}
 <input id="pw" type="password" autocomplete="off" aria-label="Senha"><p id="err"></p>
 <div class="row"><button id="cancel">Cancelar</button><button class="go" id="enter">Entrar</button></div></dialog>
 
+<dialog id="attachmentDlg" class="attachment-dialog" aria-labelledby="attachmentDlgTitle">
+<h2 id="attachmentDlgTitle">Adicionar anexo</h2>
+<label for="attachmentType">Tipo de material</label>
+<select id="attachmentType">
+<option value="video">Vídeo</option><option value="pdf">PDF</option><option value="image">Imagem</option><option value="presentation">Apresentação</option><option value="document">Documento</option><option value="link">Link externo</option><option value="other">Outro arquivo</option>
+</select>
+<label for="attachmentTitle">Título</label><input id="attachmentTitle" maxlength="120" required>
+<label for="attachmentCaption">Legenda ou descrição</label><textarea id="attachmentCaption" maxlength="1000" required></textarea>
+<label for="attachmentUrl">Link ou caminho do arquivo</label><input id="attachmentUrl" type="text" inputmode="url" placeholder="https://... ou materiais/arquivo.pdf" required>
+<label for="attachmentFile">Ou selecione um arquivo</label><input id="attachmentFile" type="file">
+<p class="hint">O nome selecionado será salvo como caminho relativo. Copie o arquivo para a mesma pasta do HTML (ou informe o caminho da subpasta). Para vídeos grandes, prefira um link ou arquivo hospedado no site.</p>
+<p id="attachmentErr" role="alert" class="hint"></p>
+<div class="row"><button type="button" id="attachmentCancel">Cancelar</button><button type="button" class="go" id="attachmentSave">Salvar anexo</button></div>
+</dialog>
+
 <script>
 (function(){
 var KEY="portfolio-maciely-v2",content=document.getElementById("content"),editing=false;
 try{var s=JSON.parse(localStorage.getItem(KEY)||"null");if(s&&s.v>Number(content.dataset.v)){content.innerHTML=s.html;content.dataset.v=s.v}}catch(e){}
+function ensureAttachmentSection(){if(document.getElementById("anexos"))return;
+var section=document.createElement("section");section.id="anexos";
+section.innerHTML='<div class="wrap"><h2>Anexos e Materiais Complementares</h2><p class="section-intro">Vídeos, documentos e outros materiais que complementam meus projetos e experiências.</p><div class="list attachments" id="attachments" aria-live="polite"></div><button class="add attachment-add edit-only" data-attachment-add>Adicionar anexo</button></div>';
+var before=content.querySelector("#competencias");content.insertBefore(section,before||null)}
+ensureAttachmentSection();
 document.querySelectorAll(".photo").forEach(syncPhoto);
 function syncPhoto(p){var i=p.querySelector("img");p.classList.toggle("has",!!(i&&i.getAttribute("src")))}
 function applyImg(im){var x=im.dataset.x||50,y=im.dataset.y||50,z=im.dataset.z||1;im.style.objectPosition=x+"% "+y+"%";im.style.transformOrigin=x+"% "+y+"%";im.style.transform="scale("+z+")"}
@@ -193,6 +246,82 @@ function setEdit(on){editing=on;document.body.classList.toggle("editing",on);
 if(!on)document.querySelectorAll(".photo.adj").forEach(function(p){p.classList.remove("adj");var z=p.querySelector(".zm");if(z)z.remove()});
 document.querySelectorAll("[data-ed]").forEach(function(el){on?el.setAttribute("contenteditable","true"):el.removeAttribute("contenteditable")})}
 function toast(t){var e=document.getElementById("toast");e.textContent=t;e.style.display="block";setTimeout(function(){e.style.display="none"},2600)}
+var attachmentTypes={video:"Vídeo",pdf:"PDF",image:"Imagem",presentation:"Apresentação",document:"Documento",link:"Link externo",other:"Outro arquivo"};
+var attachmentIcons={video:"▶",pdf:"PDF",image:"▧",presentation:"▤",document:"▤",link:"↗",other:"↓"};
+var attachmentList=document.getElementById("attachments"),attachmentDlg=document.getElementById("attachmentDlg"),attachmentCard=null;
+function attachmentUrl(raw){raw=(raw||"").trim();if(!raw||/[\u0000-\u001f]/.test(raw))return null;
+if(/^[a-z][a-z0-9+.-]*:/i.test(raw)&&!/^https?:/i.test(raw))return null;
+try{var u=new URL(raw,"https://attachment-validation.invalid/");return u.protocol==="http:"||u.protocol==="https:"?raw:null}catch(e){return null}}
+function attachmentLink(raw){return new URL(raw,location.href).href}
+function setAnchor(a,raw,label,download){a.href=attachmentLink(raw);a.textContent=label;a.target="_blank";a.rel="noopener noreferrer";a.className="btn";
+if(download&&!/^(https?:)?\/\//i.test(raw))a.setAttribute("download","");return a}
+function youtubeId(raw){try{var u=new URL(raw,location.href),m;
+if(u.hostname==="youtu.be")return u.pathname.slice(1).split("/")[0];
+if(!/(^|\.)youtube\.com$/.test(u.hostname)&&!/(^|\.)youtube-nocookie\.com$/.test(u.hostname))return null;
+if(u.searchParams.get("v"))return u.searchParams.get("v");
+m=u.pathname.match(/\/(?:embed|shorts|live)\/([a-zA-Z0-9_-]+)/);return m?m[1]:null}catch(e){return null}}
+function renderAttachment(card){
+var kind=card.dataset.kind,title=card.dataset.title||"",caption=card.dataset.caption||"",raw=attachmentUrl(card.dataset.url);
+if(!attachmentTypes[kind])kind="other";
+card.dataset.kind=kind;
+while(card.firstChild)card.removeChild(card.firstChild);
+card.className="card attachment-card";
+var controls=document.createElement("div");controls.className="attachment-controls edit-only";
+var up=document.createElement("button");up.type="button";up.dataset.move="up";up.setAttribute("aria-label","Mover anexo para cima");up.textContent="↑";
+var down=document.createElement("button");down.type="button";down.dataset.move="down";down.setAttribute("aria-label","Mover anexo para baixo");down.textContent="↓";
+var edit=document.createElement("button");edit.type="button";edit.dataset.attachmentEdit="";edit.textContent="Editar";
+var remove=document.createElement("button");remove.type="button";remove.className="rm";remove.textContent="Remover";
+controls.appendChild(up);controls.appendChild(down);controls.appendChild(edit);controls.appendChild(remove);card.appendChild(controls);
+var badge=document.createElement("span");badge.className="attachment-type";badge.textContent=attachmentIcons[kind]+" "+attachmentTypes[kind];card.appendChild(badge);
+var heading=document.createElement("h3");heading.textContent=title;card.appendChild(heading);
+var media=document.createElement("div");media.className="attachment-media";card.appendChild(media);
+var links=document.createElement("div");links.className="attachment-links";card.appendChild(links);
+if(!raw){var invalid=document.createElement("p");invalid.className="attachment-placeholder";invalid.textContent="Link ou caminho inválido. Edite este anexo para corrigir.";media.appendChild(invalid)}
+else if(kind==="image"){
+var image=document.createElement("img");image.src=attachmentLink(raw);image.alt=title;image.loading="lazy";media.appendChild(image);
+links.appendChild(setAnchor(document.createElement("a"),raw,"Abrir imagem",false))
+}else if(kind==="pdf"){
+var frame=document.createElement("iframe");frame.src=attachmentLink(raw);frame.title="Visualização: "+title;frame.loading="lazy";media.appendChild(frame);
+links.appendChild(setAnchor(document.createElement("a"),raw,"Abrir PDF",false))
+}else if(kind==="video"){
+var id=youtubeId(raw),vimeo=null;
+try{var vu=new URL(raw,location.href);if(/(^|\.)vimeo\.com$/.test(vu.hostname)){var vm=vu.pathname.match(/\/(\d+)/);vimeo=vm?vm[1]:null}}catch(e){}
+if(id){var yt=document.createElement("iframe");yt.src="https://www.youtube-nocookie.com/embed/"+encodeURIComponent(id)+"?controls=1&autoplay=0&rel=0";yt.title=title;yt.loading="lazy";yt.allow="encrypted-media; picture-in-picture";yt.allowFullscreen=true;media.appendChild(yt)}
+else if(vimeo){var vf=document.createElement("iframe");vf.src="https://player.vimeo.com/video/"+encodeURIComponent(vimeo);vf.title=title;vf.loading="lazy";vf.allow="fullscreen; picture-in-picture";vf.allowFullscreen=true;media.appendChild(vf)}
+else if(/\.(mp4|webm|ogv|ogg)(?:$|[?#])/i.test(raw)){var video=document.createElement("video");video.src=attachmentLink(raw);video.controls=true;video.preload="metadata";video.playsInline=true;media.appendChild(video)}
+else{var videoHint=document.createElement("p");videoHint.className="attachment-placeholder";videoHint.textContent="Este link não oferece visualização incorporada. Use Abrir vídeo para assistir.";media.appendChild(videoHint)}
+links.appendChild(setAnchor(document.createElement("a"),raw,"Abrir vídeo",false))
+}else if(kind==="link"){
+var linkHint=document.createElement("p");linkHint.className="attachment-placeholder";linkHint.textContent="Material disponível no link externo.";media.appendChild(linkHint);
+links.appendChild(setAnchor(document.createElement("a"),raw,"Abrir link",false))
+}else{
+var placeholder=document.createElement("p");placeholder.className="attachment-placeholder";placeholder.textContent=kind==="presentation"?"Apresentação pronta para visualizar ou baixar.":"Documento pronto para abrir ou baixar.";media.appendChild(placeholder);
+links.appendChild(setAnchor(document.createElement("a"),raw,kind==="presentation"?"Abrir apresentação":"Abrir ou baixar",true))
+}
+var description=document.createElement("p");description.className="attachment-caption";description.textContent=caption;card.appendChild(description);
+}
+function refreshAttachments(){var cards=attachmentList.querySelectorAll(".attachment-card");var empty=attachmentList.querySelector(".attachments-empty");
+if(!cards.length){if(!empty){empty=document.createElement("p");empty.className="attachments-empty";empty.textContent="Os materiais complementares serão exibidos aqui.";attachmentList.appendChild(empty)}}else if(empty)empty.remove();
+Array.prototype.forEach.call(cards,renderAttachment)}
+function openAttachmentEditor(card){if(!editing)return;attachmentCard=card;
+document.getElementById("attachmentDlgTitle").textContent=card?"Editar anexo":"Adicionar anexo";
+document.getElementById("attachmentType").value=card&&attachmentTypes[card.dataset.kind]?card.dataset.kind:"video";
+document.getElementById("attachmentTitle").value=card?card.dataset.title||"":"";
+document.getElementById("attachmentCaption").value=card?card.dataset.caption||"":"";
+document.getElementById("attachmentUrl").value=card?card.dataset.url||"":"";
+document.getElementById("attachmentFile").value="";
+document.getElementById("attachmentErr").textContent="";document.getElementById("attachmentSave").textContent=card?"Salvar alterações":"Salvar anexo";
+attachmentDlg.showModal()}
+document.getElementById("attachmentFile").addEventListener("change",function(){var file=this.files&&this.files[0];if(file)document.getElementById("attachmentUrl").value=file.name});
+document.getElementById("attachmentCancel").addEventListener("click",function(){attachmentDlg.close()});
+document.getElementById("attachmentSave").addEventListener("click",function(){
+var kind=document.getElementById("attachmentType").value,title=document.getElementById("attachmentTitle").value.trim(),caption=document.getElementById("attachmentCaption").value.trim(),raw=document.getElementById("attachmentUrl").value.trim(),err=document.getElementById("attachmentErr");
+if(!title||!caption||!raw){err.textContent="Preencha o título, a legenda e o link ou caminho do arquivo.";return}
+if(!attachmentUrl(raw)){err.textContent="Informe um link HTTP/HTTPS ou um caminho relativo válido.";return}
+var isEdit=!!attachmentCard,card=attachmentCard||document.createElement("article");card.dataset.kind=kind;card.dataset.title=title;card.dataset.caption=caption;card.dataset.url=raw;
+if(!isEdit)attachmentList.appendChild(card);
+renderAttachment(card);refreshAttachments();attachmentDlg.close();toast(isEdit?"Anexo atualizado":"Anexo adicionado");attachmentCard=null});
+refreshAttachments();
 function pick(ph){var i=document.createElement("input");i.type="file";i.accept="image/*";
 i.onchange=function(){var f=i.files[0];if(!f)return;var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){
 var m=1000,k=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);
@@ -203,11 +332,21 @@ if(b&&editing){var ph=b.closest(".photo");if(b.dataset.act==="pick")pick(ph);els
 if(on){if(!ph.classList.contains("has")){ph.classList.remove("adj");toast("Adicione a foto primeiro");return}
 var r=document.createElement("input");r.type="range";r.className="zm";r.min=1;r.max=3;r.step=.05;r.value=ph.querySelector("img").dataset.z||1;r.setAttribute("aria-label","Zoom");
 r.oninput=function(){var im=ph.querySelector("img");im.dataset.z=r.value;applyImg(im)};ov.appendChild(r);toast("Arraste a foto para mover e use a barra para ampliar")}}return}
+var attachmentAdd=e.target.closest("[data-attachment-add]");
+if(attachmentAdd&&editing){openAttachmentEditor(null);return}
+var attachmentEdit=e.target.closest("[data-attachment-edit]");
+if(attachmentEdit&&editing){openAttachmentEditor(attachmentEdit.closest(".attachment-card"));return}
+var move=e.target.closest("[data-move]");
+if(move&&editing){var moving=move.closest(".attachment-card"),next=moving.nextElementSibling,prev=moving.previousElementSibling;
+if(move.dataset.move==="up"&&prev)attachmentList.insertBefore(moving,prev);
+if(move.dataset.move==="down"&&next)attachmentList.insertBefore(next,moving);return}
+var attachmentRemove=e.target.closest(".attachment-card .rm");
+if(attachmentRemove&&editing){if(confirm("Remover este anexo?")){attachmentRemove.closest(".attachment-card").remove();refreshAttachments()}return}
 var rm=e.target.closest(".rm");
 if(rm){var list=rm.closest(".list");if(list.querySelectorAll(".item").length<2){toast("Mantenha pelo menos um item na lista");return}
 if(confirm("Remover este item?"))rm.closest(".item").remove();return}
 var add=e.target.closest(".add");
-if(add){var l=document.querySelector(add.dataset.list),last=l.querySelector(".item:last-child");
+if(add){var l=document.querySelector(add.dataset.list);if(!l)return;var last=l.querySelector(".item:last-child");
 if(last){var c=last.cloneNode(true);c.querySelectorAll(".photo img").forEach(function(i){i.removeAttribute("src");i.removeAttribute("style");i.removeAttribute("data-x");i.removeAttribute("data-y");i.removeAttribute("data-z")});c.querySelectorAll(".photo").forEach(function(p){p.classList.remove("adj");var z=p.querySelector(".zm");if(z)z.remove();syncPhoto(p)});l.appendChild(c);setEdit(true);c.scrollIntoView({behavior:"smooth",block:"center"})}}
 });
 document.addEventListener("paste",function(e){if(editing&&e.target.closest&&e.target.closest("[data-ed]")){e.preventDefault();document.execCommand("insertText",false,e.clipboardData.getData("text/plain"))}});
