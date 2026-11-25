@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Portfólio profissional de Maciely Coutinho Alves: liderança de equipe de robótica, desenvolvimento de sistemas e projetos.">
+<title>Maciely Coutinho Alves | Portfólio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F6FA;--ink:#14192B;--muted:#4F5873;--brand:#3446E0;--sig:#FFC21A;--card:#fff;--line:#DDE2EE;--head:"Space Grotesk","Segoe UI",Arial,sans-serif;--body:"DM Sans","Segoe UI",Arial,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.65 var(--body)}
+h1,h2,h3{font-family:var(--head);line-height:1.1;margin:0}
+a{color:var(--brand)}
+:focus-visible{outline:3px solid var(--brand);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+header{position:sticky;top:0;z-index:5;background:rgba(244,246,250,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font:700 1.15rem var(--head);text-decoration:none;color:var(--ink)}
+nav{display:flex;gap:22px}
+nav a{color:var(--muted);text-decoration:none;font-weight:500;font-size:.98rem}
+nav a:hover{color:var(--brand)}
+.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center;padding:72px 0 64px}
+h1{font-size:clamp(2.6rem,7vw,4.9rem);font-weight:700;letter-spacing:-.02em}
+.role{font:500 1.35rem var(--head);color:var(--brand);margin:18px 0 14px}
+.lede{max-width:52ch;color:var(--muted);margin:0 0 28px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;padding:13px 24px;border-radius:999px;font-weight:700;text-decoration:none;border:2px solid var(--ink);color:var(--ink)}
+.btn.main{background:var(--ink);color:#fff}
+.btn:hover{background:var(--sig);color:var(--ink);border-color:var(--ink)}
+.heroPhoto{position:relative;padding:0 18px 18px 0}
+.heroPhoto::before{content:"";position:absolute;inset:18px 0 0 18px;background:var(--sig);border-radius:28px}
+.photo{position:relative;overflow:hidden;background:#E3E8F4;display:grid;place-items:center;color:var(--muted);font:700 3rem var(--head)}
+.photo img{display:none;width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.photo.has img{display:block}
+.photo.has .ph{display:none}
+.heroPhoto .photo{position:relative;aspect-ratio:4/5;border-radius:28px;z-index:1}
+body.editing .photo.adj{cursor:grab;touch-action:none;box-shadow:inset 0 0 0 4px var(--brand)}
+.ov input{width:110px;accent-color:var(--sig)}
+.ov{align-items:center;display:none;position:absolute;left:8px;bottom:8px;gap:6px;z-index:2}
+body.editing .ov{display:flex}
+.ov button{font:700 .8rem var(--body);padding:6px 10px;border-radius:8px;border:0;background:#fff;color:var(--ink);cursor:pointer}
+section{padding:60px 0;border-top:1px solid var(--line)}
+h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:28px}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.about p{margin:0 0 14px}
+.facts{margin:0;display:grid;gap:14px}
+.facts dt{font-weight:700}
+.facts dd{margin:0;color:var(--muted)}
+.list{display:grid;gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 26px;position:relative}
+.card h3{font-size:1.3rem}
+.meta{color:var(--brand);font-weight:500;margin:6px 0 10px}
+.card ul{margin:0;padding-left:20px;color:var(--muted)}
+.card li+li{margin-top:4px}
+.projects{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.projects .card{padding:0;overflow:hidden}
+.projects .photo{aspect-ratio:16/9;font-size:1.4rem}
+.projects .body{padding:20px 24px 24px}
+.projects p{margin:8px 0 10px;color:var(--muted)}
+.tags{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.tags li{background:var(--card);border:2px solid var(--ink);border-radius:999px;padding:8px 18px;font-weight:500}
+.contact{background:var(--ink);color:#fff;border-top:0}
+.contact h2{color:#fff}
+.contact a{color:var(--sig);font-weight:700}
+.contact p{max-width:52ch;margin:0 0 18px;color:#C9D0E6}
+.contact .links{display:grid;gap:8px;font-size:1.15rem}
+footer{background:var(--ink);color:#9AA3C2;padding:22px 0 30px;font-size:.9rem;border-top:1px solid #2B3250}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer button{background:none;border:0;color:#9AA3C2;font:inherit;cursor:pointer;text-decoration:underline}
+.edit-only{display:none}
+body.editing .edit-only{display:inline-block}
+.rm{position:absolute;top:12px;right:12px;z-index:3;background:#fff;border:1px solid var(--line);border-radius:8px;padding:5px 10px;font:700 .8rem var(--body);color:#B3261E;cursor:pointer}
+body.editing [contenteditable]{outline:1px dashed var(--brand);outline-offset:3px;border-radius:4px}
+body.editing .photo{cursor:default}
+#bar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--ink);color:#fff;padding:12px 16px;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center}
+body.editing #bar{display:flex}
+#bar span{font-size:.9rem;color:#C9D0E6;margin-right:8px}
+#bar button,.add{font:700 .9rem var(--body);padding:9px 16px;border-radius:999px;border:0;cursor:pointer;background:var(--sig);color:var(--ink)}
+#bar button.alt{background:#2B3250;color:#fff}
+.add{margin-top:16px;background:var(--ink);color:#fff}
+body.editing{padding-bottom:70px}
+dialog{border:0;border-radius:18px;padding:28px;max-width:340px;width:90%}
+dialog::backdrop{background:rgba(20,25,43,.6)}
+dialog h2{font-size:1.4rem;margin-bottom:8px}
+dialog input{width:100%;padding:11px 12px;border:2px solid var(--line);border-radius:10px;font:inherit;margin:10px 0}
+dialog .row{display:flex;gap:10px;justify-content:flex-end}
+dialog button{font:700 .95rem var(--body);padding:9px 18px;border-radius:999px;border:2px solid var(--ink);background:#fff;cursor:pointer}
+dialog button.go{background:var(--ink);color:#fff}
+#err{color:#B3261E;font-size:.9rem;min-height:1.3em;margin:0}
+#toast{position:fixed;top:72px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;z-index:30;display:none}
+@media(max-width:760px){.hero,.about{grid-template-columns:1fr}.hero{padding-top:40px}.heroPhoto{max-width:340px}nav{gap:14px}nav a{font-size:.9rem}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="logo" href="#topo">Maciely Alves</a>
+<nav aria-label="Principal"><a href="#sobre">Sobre</a><a href="#experiencias">Experiências</a><a href="#projetos">Projetos</a><a href="#contato">Contato</a></nav></div></header>
+
+<main id="content" data-v="0">
+<div class="wrap" id="topo">
+<div class="hero">
+<div>
+<h1 data-ed>Maciely Coutinho Alves</h1>
+<p class="role" data-ed>Líder de equipe de robótica e estudante de Desenvolvimento de Sistemas</p>
+<p class="lede" data-ed>Tenho 18 anos e uno tecnologia, gestão de equipes e boa comunicação para transformar ideias em projetos que funcionam. Busco minha primeira oportunidade profissional para aprender na prática e entregar resultado.</p>
+<div class="btns"><a class="btn main" href="#experiencias">Ver experiências</a><a class="btn" href="https://wa.me/5586994242895">Falar comigo</a></div>
+</div>
+<div class="heroPhoto"><div class="photo"><span class="ph">MA</span><img alt="Retrato de Maciely Coutinho Alves"><div class="ov"><button data-act="pick">Trocar foto</button><button data-act="pos">Ajustar</button></div></div></div>
+</div>
+</div>
+
+<section id="sobre"><div class="wrap">
+<h2>Sobre mim</h2>
+<div class="about">
+<div data-ed><p>Sou concluinte do Ensino Médio Técnico em Desenvolvimento de Sistemas no SESI SENAI, em Teresina. Durante a escola, participei de projetos que me deram bagagem em desenvolvimento e em gestão de pessoas.</p><p>Lidero uma equipe de robótica, organizo tarefas e prazos, e também participo das competições. Sou boa em comunicação: alinho ideias, motivo o time e apresento resultados com clareza.</p></div>
+<dl class="facts">
+<div><dt>Formação</dt><dd data-ed>Ensino Médio Técnico em Desenvolvimento de Sistemas, SESI SENAI</dd></div>
+<div><dt>Cidade</dt><dd data-ed>Teresina, Piauí</dd></div>
+<div><dt>Interesses</dt><dd data-ed>Tecnologia, robótica, liderança e empreendedorismo</dd></div>
+</dl>
+</div></div></section>
+
+<section id="experiencias"><div class="wrap">
+<h2>Experiências</h2>
+<div class="list" id="exp">
+<article class="item card"><button class="rm edit-only">Remover</button>
+<h3 data-ed>Líder da equipe de robótica</h3><p class="meta" data-ed>SESI SENAI, Teresina</p>
+<ul data-ed><li>Gestão da equipe: divisão de tarefas, cronograma e acompanhamento das entregas.</li><li>Participação direta nas competições, no desenvolvimento e na operação do projeto.</li><li>Alinhamento entre integrantes, mentores e organizadores.</li></ul></article>
+<article class="item card"><button class="rm edit-only">Remover</button>
+<h3 data-ed>Integrante do NEXA</h3><p class="meta" data-ed>Junior Achievement (JA Brasil)</p>
+<ul data-ed><li>Participação em programa de protagonismo e empreendedorismo para jovens.</li><li>Desenvolvimento de habilidades de trabalho em equipe e comunicação.</li></ul></article>
+<article class="item card"><button class="rm edit-only">Remover</button>
+<h3 data-ed>Ensino Médio Técnico em Desenvolvimento de Sistemas</h3><p class="meta" data-ed>SESI SENAI, Teresina, conclusão em 2026</p>
+<ul data-ed><li>Formação em lógica de programação e desenvolvimento de sistemas.</li><li>Projetos práticos, feiras, seminários e visitas técnicas.</li></ul></article>
+</div>
+<button class="add edit-only" data-list="#exp">Adicionar experiência</button>
+</div></section>
+
+<section id="projetos"><div class="wrap">
+<h2>Projetos</h2>
+<div class="list projects" id="proj">
+<article class="item card"><button class="rm edit-only">Remover</button>
+<div class="photo"><span class="ph">Foto do projeto</span><img alt="Foto do projeto"><div class="ov"><button data-act="pick">Trocar foto</button><button data-act="pos">Ajustar</button></div></div>
+<div class="body"><h3 data-ed>Projeto da equipe de robótica</h3><p data-ed>Desenvolvimento do robô e preparação para as competições, com planejamento de tarefas e testes em equipe sob minha liderança.</p></div></article>
+<article class="item card"><button class="rm edit-only">Remover</button>
+<div class="photo"><span class="ph">Foto do projeto</span><img alt="Foto do projeto"><div class="ov"><button data-act="pick">Trocar foto</button><button data-act="pos">Ajustar</button></div></div>
+<div class="body"><h3 data-ed>Portfólio escolar, 3º EMI B</h3><p data-ed>Registro das atividades, projetos e aprendizados do meu último ano no Ensino Médio Integrado.</p><a href="https://maciely27.github.io/portfolio/">Abrir portfólio escolar</a></div></article>
+</div>
+<button class="add edit-only" data-list="#proj">Adicionar projeto</button>
+</div></section>
+
+<section id="competencias"><div class="wrap">
+<h2>Competências</h2>
+<ul class="tags" data-ed><li>Liderança de equipes</li><li>Gestão de projetos</li><li>Comunicação</li><li>Robótica</li><li>Lógica de programação</li><li>Organização e prazos</li><li>Microsoft Office</li></ul>
+</div></section>
+</main>
+
+<section id="contato" class="contact"><div class="wrap">
+<h2>Vamos conversar</h2>
+<p>Aberta a estágios, programas de jovem aprendiz e projetos em tecnologia.</p>
+<div class="links"><a href="mailto:maci.coual@gmail.com">maci.coual@gmail.com</a><a href="https://wa.me/5586994242895">WhatsApp: (86) 99424-2895</a></div>
+</div></section>
+
+<footer><div class="wrap"><span>© 2026 Maciely Coutinho Alves. Teresina, PI.</span><button id="open">Área do editor</button></div></footer>
+
+<div id="bar" role="toolbar" aria-label="Editor"><span>Modo editor: clique nos textos para escrever</span>
+<button id="save">Salvar</button><button id="exp-btn">Baixar página atualizada</button><button class="alt" id="reset">Descartar alterações</button><button class="alt" id="exit">Sair</button></div>
+<div id="toast" role="status"></div>
+
+<dialog id="dlg"><h2>Área do editor</h2><p style="margin:0;color:var(--muted)">Digite a senha para editar o portfólio.</p>
+<input id="pw" type="password" autocomplete="off" aria-label="Senha"><p id="err"></p>
+<div class="row"><button id="cancel">Cancelar</button><button class="go" id="enter">Entrar</button></div></dialog>
+
+<script>
+(function(){
+var KEY="portfolio-maciely-v2",content=document.getElementById("content"),editing=false;
+try{var s=JSON.parse(localStorage.getItem(KEY)||"null");if(s&&s.v>Number(content.dataset.v)){content.innerHTML=s.html;content.dataset.v=s.v}}catch(e){}
+document.querySelectorAll(".photo").forEach(syncPhoto);
+function syncPhoto(p){var i=p.querySelector("img");p.classList.toggle("has",!!(i&&i.getAttribute("src")))}
+function applyImg(im){var x=im.dataset.x||50,y=im.dataset.y||50,z=im.dataset.z||1;im.style.objectPosition=x+"% "+y+"%";im.style.transformOrigin=x+"% "+y+"%";im.style.transform="scale("+z+")"}
+function clamp(n){return Math.max(0,Math.min(100,n))}
+var drag=null;
+document.addEventListener("pointerdown",function(e){var ph=e.target.closest&&e.target.closest(".photo.adj");if(!ph||e.target.closest(".ov"))return;
+var im=ph.querySelector("img");drag={ph:ph,im:im,x:e.clientX,y:e.clientY,ox:+(im.dataset.x||50),oy:+(im.dataset.y||50)};ph.setPointerCapture(e.pointerId);e.preventDefault()});
+document.addEventListener("pointermove",function(e){if(!drag)return;var r=drag.ph.getBoundingClientRect();
+drag.im.dataset.x=clamp(drag.ox-(e.clientX-drag.x)/r.width*100);drag.im.dataset.y=clamp(drag.oy-(e.clientY-drag.y)/r.height*100);applyImg(drag.im)});
+document.addEventListener("pointerup",function(){drag=null});
+function setEdit(on){editing=on;document.body.classList.toggle("editing",on);
+if(!on)document.querySelectorAll(".photo.adj").forEach(function(p){p.classList.remove("adj");var z=p.querySelector(".zm");if(z)z.remove()});
+document.querySelectorAll("[data-ed]").forEach(function(el){on?el.setAttribute("contenteditable","true"):el.removeAttribute("contenteditable")})}
+function toast(t){var e=document.getElementById("toast");e.textContent=t;e.style.display="block";setTimeout(function(){e.style.display="none"},2600)}
+function pick(ph){var i=document.createElement("input");i.type="file";i.accept="image/*";
+i.onchange=function(){var f=i.files[0];if(!f)return;var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){
+var m=1000,k=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);
+c.getContext("2d").drawImage(im,0,0,c.width,c.height);ph.querySelector("img").src=c.toDataURL("image/jpeg",.82);syncPhoto(ph)};im.src=r.result};r.readAsDataURL(f)};i.click()}
+document.addEventListener("click",function(e){
+var b=e.target.closest(".ov button");
+if(b&&editing){var ph=b.closest(".photo");if(b.dataset.act==="pick")pick(ph);else{var ov=ph.querySelector(".ov"),on=ph.classList.toggle("adj"),old=ov.querySelector(".zm");if(old)old.remove();
+if(on){if(!ph.classList.contains("has")){ph.classList.remove("adj");toast("Adicione a foto primeiro");return}
+var r=document.createElement("input");r.type="range";r.className="zm";r.min=1;r.max=3;r.step=.05;r.value=ph.querySelector("img").dataset.z||1;r.setAttribute("aria-label","Zoom");
+r.oninput=function(){var im=ph.querySelector("img");im.dataset.z=r.value;applyImg(im)};ov.appendChild(r);toast("Arraste a foto para mover e use a barra para ampliar")}}return}
+var rm=e.target.closest(".rm");
+if(rm){var list=rm.closest(".list");if(list.querySelectorAll(".item").length<2){toast("Mantenha pelo menos um item na lista");return}
+if(confirm("Remover este item?"))rm.closest(".item").remove();return}
+var add=e.target.closest(".add");
+if(add){var l=document.querySelector(add.dataset.list),last=l.querySelector(".item:last-child");
+if(last){var c=last.cloneNode(true);c.querySelectorAll(".photo img").forEach(function(i){i.removeAttribute("src");i.removeAttribute("style");i.removeAttribute("data-x");i.removeAttribute("data-y");i.removeAttribute("data-z")});c.querySelectorAll(".photo").forEach(function(p){p.classList.remove("adj");var z=p.querySelector(".zm");if(z)z.remove();syncPhoto(p)});l.appendChild(c);setEdit(true);c.scrollIntoView({behavior:"smooth",block:"center"})}}
+});
+document.addEventListener("paste",function(e){if(editing&&e.target.closest&&e.target.closest("[data-ed]")){e.preventDefault();document.execCommand("insertText",false,e.clipboardData.getData("text/plain"))}});
+var dlg=document.getElementById("dlg"),pw=document.getElementById("pw"),err=document.getElementById("err");
+document.getElementById("open").onclick=function(){pw.value="";err.textContent="";dlg.showModal();pw.focus()};
+document.getElementById("cancel").onclick=function(){dlg.close()};
+function tryEnter(){if(pw.value==="1122"){dlg.close();setEdit(true);toast("Modo editor ativado")}else{err.textContent="Senha incorreta. Tente de novo."}}
+document.getElementById("enter").onclick=tryEnter;
+pw.addEventListener("keydown",function(e){if(e.key==="Enter")tryEnter()});
+function stamp(){var v=Date.now();content.dataset.v=v;return v}
+document.getElementById("save").onclick=function(){setEdit(false);var v=stamp();
+try{localStorage.setItem(KEY,JSON.stringify({v:v,html:content.innerHTML}));toast("Salvo neste navegador")}catch(e){toast("Não coube: use fotos menores ou baixe a página")}setEdit(true)};
+document.getElementById("exp-btn").onclick=function(){setEdit(false);stamp();
+var html="<!DOCTYPE html>\n"+document.documentElement.outerHTML,a=document.createElement("a");
+a.href=URL.createObjectURL(new Blob([html],{type:"text/html"}));a.download="index.html";a.click();setEdit(true);toast("Arquivo index.html baixado")};
+document.getElementById("reset").onclick=function(){if(confirm("Descartar o que foi salvo neste navegador?")){try{localStorage.removeItem(KEY)}catch(e){}location.reload()}};
+document.getElementById("exit").onclick=function(){setEdit(false)};
+})();
+</script>
+</body>
+</html>
